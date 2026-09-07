@@ -1,0 +1,44 @@
+{
+  "info": {
+    "name": "AI Affiliate Video Engine - Mock Product",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "jobId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Start mock product video generation",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"product\": {\n    \"id\": \"mock-meesho-product-001\",\n    \"title\": \"Portable Mini Mixer Grinder\",\n    \"description\": \"A compact rechargeable mixer for smoothies, juices, and everyday kitchen prep. It is lightweight, easy to carry, and simple to clean.\",\n    \"price\": 899,\n    \"currency\": \"INR\",\n    \"benefits\": [\n      \"Rechargeable and cordless\",\n      \"Compact for home or travel\",\n      \"Easy to clean\",\n      \"Useful for smoothies and juices\"\n    ],\n    \"metadata\": {\n      \"category\": \"kitchen\",\n      \"source\": \"manual-mock\"\n    }\n  }\n}"
+        },
+        "url": "{{baseUrl}}/api/video/test-generate"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const body = pm.response.json();",
+              "if (body.data && body.data.jobId) pm.collectionVariables.set('jobId', body.data.jobId);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get mock product video status",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/video/test-generate/{{jobId}}"
+      }
+    }
+  ]
+}

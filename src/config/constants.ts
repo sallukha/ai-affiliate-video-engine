@@ -1,4 +1,3 @@
-export const APP_NAME = 'ai-affiliate-video-engine';
 export const APP_NAME = "AI Affiliate Video Engine";
 
 export const DEFAULT_PORT = 5000;

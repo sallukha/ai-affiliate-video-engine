@@ -1,0 +1,24 @@
+{
+  "id": "prototype-storyboard",
+  "width": 720,
+  "height": 1280,
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "intro",
+      "order": 0,
+      "durationInSeconds": 3,
+      "text": "A better way to organize your day",
+      "narration": "A better way to organize your day.",
+      "imageUrl": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='1280'%3E%3Crect width='720' height='1280' fill='%231f2937'/%3E%3Ccircle cx='360' cy='470' r='180' fill='%2338bdf8'/%3E%3C/svg%3E"
+    },
+    {
+      "id": "value",
+      "order": 1,
+      "durationInSeconds": 4,
+      "text": "Simple tools. Clear progress.",
+      "narration": "Simple tools. Clear progress. More time for the work that matters.",
+      "imageUrl": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='1280'%3E%3Crect width='720' height='1280' fill='%230f766e'/%3E%3Crect x='100' y='360' width='520' height='560' rx='32' fill='%23ccfbf1'/%3E%3Cpath d='M180 500h360M180 620h260M180 740h320' stroke='%230f766e' stroke-width='28' stroke-linecap='round'/%3E%3C/svg%3E"
+    }
+  ]
+}

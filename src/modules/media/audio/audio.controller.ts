@@ -45,7 +45,7 @@ export const getAudio = (_req: Request, res: Response) => {
 };
 
 export const getSingleAudio = (req: Request, res: Response) => {
-  const audio = getAudioById(req.params.id);
+  const audio = getAudioById(String(req.params.id));
 
   if (!audio) {
     return res.status(404).json({
@@ -61,7 +61,7 @@ export const getSingleAudio = (req: Request, res: Response) => {
 };
 
 export const removeAudio = (req: Request, res: Response) => {
-  const deleted = deleteAudio(req.params.id);
+  const deleted = deleteAudio(String(req.params.id));
 
   if (!deleted) {
     return res.status(404).json({

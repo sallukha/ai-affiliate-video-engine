@@ -1,0 +1,19 @@
+{
+  "id": "mock-meesho-product-001",
+  "title": "Portable Mini Mixer Grinder",
+  "description": "A compact rechargeable mixer for smoothies, juices, and everyday kitchen prep. It is lightweight, easy to carry, and simple to clean.",
+  "price": 899,
+  "currency": "INR",
+  "benefits": [
+    "Rechargeable and cordless",
+    "Compact for home or travel",
+    "Easy to clean",
+    "Useful for smoothies and juices"
+  ],
+  "imageUrl": "https://example.com/mock-portable-mixer.jpg",
+  "sourceUrl": "https://example.com/mock-meesho-product",
+  "metadata": {
+    "category": "kitchen",
+    "source": "manual-mock"
+  }
+}

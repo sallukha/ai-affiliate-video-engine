@@ -46,7 +46,7 @@ export const getImages = (_req: Request, res: Response) => {
 };
 
 export const getSingleImage = (req: Request, res: Response) => {
-  const image = getImageById(req.params.id);
+  const image = getImageById(String(req.params.id));
 
   if (!image) {
     return res.status(404).json({
@@ -62,7 +62,7 @@ export const getSingleImage = (req: Request, res: Response) => {
 };
 
 export const removeImage = (req: Request, res: Response) => {
-  const deleted = deleteImage(req.params.id);
+  const deleted = deleteImage(String(req.params.id));
 
   if (!deleted) {
     return res.status(404).json({

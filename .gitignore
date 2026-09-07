@@ -3,3 +3,9 @@ dist/
 storage/*
 .env
 !.env.example
+
+.env
+.env.local
+.env.*.local
+storage/output/audio/*
+storage/output/videos/*

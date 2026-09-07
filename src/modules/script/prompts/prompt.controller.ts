@@ -63,7 +63,7 @@ class PromptController {
     try {
       const { promptId } = req.params;
 
-      const prompt = await promptService.getPromptById(promptId);
+      const prompt = await promptService.getPromptById(String(promptId));
 
       if (!prompt) {
         res.status(404).json({
@@ -94,7 +94,7 @@ class PromptController {
       const { promptId } = req.params;
 
       const updatedPrompt = await promptService.updatePrompt(
-        promptId,
+        String(promptId),
         req.body
       );
 
@@ -127,7 +127,7 @@ class PromptController {
     try {
       const { promptId } = req.params;
 
-      const deleted = await promptService.deletePrompt(promptId);
+      const deleted = await promptService.deletePrompt(String(promptId));
 
       if (!deleted) {
         res.status(404).json({

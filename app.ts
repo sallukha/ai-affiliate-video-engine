@@ -8,10 +8,14 @@ import imageRoutes from "./src/modules/media/image/image.routes";
 
 import promptRoutes from "./src/modules/script/prompts/prompt.routes";
 import storyboardPromptRoutes from "./src/modules/storyboard/prompts/prompt.routes";
+import { errorMiddleware, notFoundMiddleware } from "./src/shared/middleware";
+import { env } from "./src/config/env";
+import testPipelineRoutes from "./src/modules/video/test-pipeline/test-pipeline.routes";
 
 const app = express();
 
 app.use(express.json());
+app.use("/storage", express.static(env.storagePath));
 
 // Storyboard prompts
 app.use(
@@ -31,5 +35,9 @@ app.use("/api/captions", captionsRoutes);
 
 // General script prompts
 app.use("/api/prompts", promptRoutes);
+app.use("/api/video", testPipelineRoutes);
+
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);
 
 export default app;

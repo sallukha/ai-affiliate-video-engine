@@ -51,7 +51,7 @@ export const getAllProducts = (_req: Request, res: Response) => {
 };
 
 export const getSingleProduct = (req: Request, res: Response) => {
-  const product = getProductById(req.params.id);
+  const product = getProductById(String(req.params.id));
 
   if (!product) {
     return res.status(404).json({
@@ -67,7 +67,7 @@ export const getSingleProduct = (req: Request, res: Response) => {
 };
 
 export const removeProduct = (req: Request, res: Response) => {
-  const deleted = deleteProduct(req.params.id);
+  const deleted = deleteProduct(String(req.params.id));
 
   if (!deleted) {
     return res.status(404).json({
