@@ -1,0 +1,6 @@
+{
+  "name": "AffiliateOps AI Studio",
+  "description": "Professional AI Video Automation Dashboard for affiliate marketing videos with automated script generation, voiceover, and Remotion rendering pipeline.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

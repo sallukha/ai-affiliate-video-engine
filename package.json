@@ -1,42 +1,13 @@
 {
-  "name": "ai-affiliate-video-engine",
-  "version": "0.1.0",
-  "description": "API foundation for an AI affiliate video generation pipeline",
-  "main": "dist/server.js",
+  "name": "ai-affiliate-video-engine-workspace",
+  "private": true,
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "dev": "tsx watch src/server.ts",
-    "start": "node dist/server.js",
-    "test": "node --test tests/prototype.test.js",
-    "test:gemini": "tsx src/scripts/test-gemini.ts",
-    "test:sarvam": "tsx src/scripts/test-sarvam.ts",
-    "test:e2e": "tsx src/scripts/test-e2e.ts"
-  },
-  "keywords": [
-    "affiliate",
-    "video",
-    "ai"
-  ],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@google/genai": "^2.21.0",
-    "@remotion/bundler": "4.0.522",
-    "@remotion/renderer": "4.0.522",
-    "dotenv": "^16.6.1",
-    "express": "^4.21.2",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "remotion": "4.0.522",
-    "zod": "4.5.4"
-  },
-  "devDependencies": {
-    "@remotion/cli": "4.0.522",
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.10.5",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.7",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "client:dev": "npm --prefix client run dev",
+    "client:build": "npm --prefix client run build",
+    "client:lint": "npm --prefix client run lint",
+    "server:dev": "npm --prefix server run dev",
+    "server:build": "npm --prefix server run build",
+    "server:start": "npm --prefix server start",
+    "server:test": "npm --prefix server test"
   }
 }

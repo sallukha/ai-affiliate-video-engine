@@ -1,54 +1,67 @@
- # AI Affiliate Video Engine
+# AI Affiliate Video Engine
 
-AI Affiliate Video Engine is a Node.js and TypeScript project that will help generate affiliate marketing videos using AI.
+AffiliateOps AI is a React frontend plus Node/TypeScript backend for generating affiliate marketing videos from product details.
 
-The main purpose of this project is to take product information and convert it into a short marketing video.
-
-## How It Works
-
-The basic project flow will be:
-
-Product Information
-↓
-AI generates a marketing script
-↓
-AI generates voice from the script
-↓
-Product images and media are added
-↓
-Captions are generated
-↓
-Video is created
-↓
-Final MP4 is generated
-
-## Main Features
-
-The project will include:
-
-- Product information input
-- Product URL import support in the future
-- AI marketing script generation
-- AI voice generation
-- Storyboard generation
-- Caption generation
-- Image and media processing
-- Video generation
-- Final MP4 output
-
-## Project Structure
+## Structure
 
 ```text
-src/
-├── config/          # Application configuration
-├── modules/         # Main project features
-├── providers/       # AI and external service integrations
-└── shared/          # Common reusable code
+.
+|-- app.ts                         # Express app and route mounting
+|-- src/                           # Backend modules, providers, config, shared utilities
+|   |-- modules/v1/                # Frontend-facing /api/v1 integration layer
+|   |-- providers/llm/             # Gemini integration
+|   |-- providers/tts/             # Sarvam Bulbul TTS integration
+|   `-- modules/video/remotion/    # Remotion render pipeline
+|-- affiliateops-ai-studio/        # Existing React + TypeScript + Vite frontend
+|-- storage/                       # Runtime media output, ignored by Git
+|-- docs/                          # API, setup, and architecture docs
+`-- tests/                         # Backend smoke tests
+```
 
-remotion/            # Video templates and animations
+The frontend and backend remain separate. The existing backend is at the repository root to preserve the working Remotion and TypeScript paths already in this project.
 
-storage/             # Images, audio, temporary files, and output videos
+## Local Setup
 
-tests/               # Project testing
+Backend:
 
-docs/                # Project documentation
+```bash
+npm install
+cp .env.example .env
+npm run dev
+```
+
+Frontend:
+
+```bash
+cd affiliateops-ai-studio
+npm install --legacy-peer-deps
+cp .env.example .env
+npm run dev
+```
+
+Open the frontend at `http://localhost:3000`. The frontend defaults to `http://localhost:5000/api/v1`.
+
+## Required Environment
+
+Backend video generation requires:
+
+- `GEMINI_API_KEY`
+- `SARVAM_API_KEY`
+- `FFMPEG_PATH` or `ffmpeg` on PATH
+- `STORAGE_PATH=storage`
+
+`MONGODB_URI` and `REDIS_URL` are documented placeholders for the next persistence/queue stage. The current integration uses an in-memory job store and the existing async local pipeline.
+
+## Verification
+
+Commands run during integration:
+
+```bash
+npm run build
+npm test
+cd affiliateops-ai-studio
+npm run lint
+npm run build
+```
+
+The frontend production build emits a chunk-size warning only. See `docs/SETUP.md` for troubleshooting.
