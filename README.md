@@ -52,6 +52,22 @@ Backend video generation requires:
 
 `MONGODB_URI` and `REDIS_URL` are documented placeholders for the next persistence/queue stage. The current integration uses an in-memory job store and the existing async local pipeline.
 
+## Authentication
+
+Login and signup store user records and revocable sessions in MongoDB. Set `MONGODB_URI` in `server/.env` (`MONGODB_DATABASE` defaults to `affiliate_video_engine`), plus these backend-only variables:
+
+```dotenv
+JWT_SECRET=<at least 32 random bytes, encoded as hex>
+JWT_EXPIRES_IN=15m
+JWT_ISSUER=ai-affiliate-video-engine
+JWT_AUDIENCE=ai-affiliate-video-engine-client
+FRONTEND_ORIGIN=http://localhost:3000
+```
+
+Generate a strong secret locally with `node -e "process.stdout.write(require('node:crypto').randomBytes(32).toString('hex'))"` and store its output only in `server/.env` or a deployment secret manager. Never use a `VITE_` variable for `JWT_SECRET`.
+
+The browser receives only an HttpOnly, SameSite=Lax cookie. Its 15 minute JWT is checked against a MongoDB session record, so logout revokes the session immediately. Production cookies are Secure; deploy frontend and backend over HTTPS on a same-site domain and set `FRONTEND_ORIGIN` to the exact frontend origin(s). Existing video and product APIs remain unchanged and are not server-side protected by this addition.
+
 ## Verification
 
 Commands run during integration:

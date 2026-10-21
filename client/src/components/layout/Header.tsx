@@ -13,9 +13,11 @@ import {
   AlertTriangle,
   User,
   Settings,
-  HelpCircle
+  HelpCircle,
+  LogOut
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 
 interface HeaderProps {
   onToggleSidebar: () => void;
@@ -25,6 +27,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { dataMode, setDataMode, health, isCheckingHealth, refreshHealth, settings, addToast } = useApp();
+  const { user, logout } = useAuth();
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -214,7 +217,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
             className="flex items-center gap-2 rounded-lg p-1 text-left hover:bg-slate-100"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 font-medium text-xs text-white">
-              SK
+              {(user?.name ?? settings.userName).split(/\s+/).map((part) => part[0]).slice(0, 2).join('').toUpperCase()}
             </div>
             <ChevronDown className="hidden h-3.5 w-3.5 text-slate-400 sm:block" />
           </button>
@@ -222,8 +225,8 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
           {showProfileMenu && (
             <div className="absolute right-0 mt-2 w-56 rounded-xl border border-slate-200 bg-white p-1.5 shadow-xl">
               <div className="border-b border-slate-100 px-3 py-2 text-xs">
-                <div className="font-semibold text-slate-900">{settings.userName}</div>
-                <div className="truncate text-[11px] text-slate-500">{settings.userEmail}</div>
+                <div className="font-semibold text-slate-900">{user?.name ?? settings.userName}</div>
+                <div className="truncate text-[11px] text-slate-500">{user?.email ?? settings.userEmail}</div>
               </div>
 
               <div className="py-1">
@@ -249,6 +252,17 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
                 >
                   <HelpCircle className="h-3.5 w-3.5 text-slate-400" />
                   Integration Guide
+                </button>
+                <button
+                  onClick={async () => {
+                    setShowProfileMenu(false);
+                    try { await logout(); navigate('/login', { replace: true }); }
+                    catch (error) { addToast({ type: 'error', title: 'Could not log out', message: error instanceof Error ? error.message : 'Please try again.' }); }
+                  }}
+                  className="flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-100"
+                >
+                  <LogOut className="h-3.5 w-3.5 text-slate-400" />
+                  Log out
                 </button>
               </div>
             </div>

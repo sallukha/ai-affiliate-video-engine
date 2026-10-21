@@ -16,6 +16,11 @@ export const env = {
 
   frontendOrigins: (process.env.FRONTEND_ORIGIN ?? "http://localhost:3000,http://localhost:3001,http://localhost:5173,http://127.0.0.1:3000,http://127.0.0.1:3001,http://127.0.0.1:5173").split(",").map((origin) => origin.trim()).filter(Boolean),
   mongodbUri: getEnv("MONGODB_URI", false),
+  mongodbDatabase: process.env.MONGODB_DATABASE ?? "affiliate_video_engine",
+  jwtSecret: getEnv("JWT_SECRET", false),
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? "15m",
+  jwtIssuer: process.env.JWT_ISSUER ?? "ai-affiliate-video-engine",
+  jwtAudience: process.env.JWT_AUDIENCE ?? "ai-affiliate-video-engine-client",
   redisUrl: getEnv("REDIS_URL", false),
 
   geminiApiKey: getEnv("GEMINI_API_KEY", false),

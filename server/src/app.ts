@@ -12,32 +12,20 @@ import { errorMiddleware, notFoundMiddleware } from "./shared/middleware";
 import { env } from "./config/env";
 import testPipelineRoutes from "./modules/video/test-pipeline/test-pipeline.routes";
 import v1Routes from "./modules/v1/v1.routes";
+import authRoutes from "./modules/auth/auth.routes";
+import { isAllowedFrontendOrigin } from "./shared/utils/origin";
 
 const app = express();
 
-function isAllowedOrigin(origin: string): boolean {
-  if (env.frontendOrigins.includes(origin)) return true;
-  if (env.nodeEnv === "production") return false;
-
-  try {
-    const url = new URL(origin);
-    const isDevPort = ["3000", "3001", "5173"].includes(url.port);
-    const isLocalHost = url.hostname === "localhost" || url.hostname === "127.0.0.1";
-    const isPrivateLan = /^(10|192\.168|172\.(1[6-9]|2\d|3[0-1]))\./.test(url.hostname);
-    return isDevPort && (isLocalHost || isPrivateLan);
-  } catch {
-    return false;
-  }
-}
-
 app.use((req, res, next) => {
   const origin = req.headers.origin;
-  if (origin && isAllowedOrigin(origin)) {
+  if (origin && isAllowedFrontendOrigin(origin)) {
     res.header("Access-Control-Allow-Origin", origin);
     res.header("Vary", "Origin");
   }
   res.header("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE,OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Request-Id");
+  res.header("Access-Control-Allow-Credentials", "true");
   if (req.method === "OPTIONS") {
     res.sendStatus(204);
     return;
@@ -54,6 +42,7 @@ app.use(express.json({ limit: "8mb" }));
 app.use("/storage", express.static(env.storagePath));
 
 app.use("/api/v1", v1Routes);
+app.use("/api/auth", authRoutes);
 
 // Storyboard prompts
 app.use(
